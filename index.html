@@ -1,0 +1,119 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SETI - Web App Móvil</title>
+        <link rel="stylesheet" href="styles.css">
+
+    </head>
+    <body>
+
+    <div class="mobile-frame">
+        <!-- Encabezado de la App Móvil -->
+        <div class="app-header">
+            <div class="text-header">
+                <h1>SETI </h1>
+                <p>Sistema Especializado de Transporte Inteligente </p>
+            </div>
+            <img src="images/logo.png" alt="">
+        </div>
+
+        <!-- Pestañas de Autenticación -->
+        <div class="tab-buttons" id="tab-container">
+            <button class="tab-btn active" id="btn-tab-login" onclick="switchTab('login')">Ingresar</button>
+            <button class="tab-btn" id="btn-tab-register" onclick="switchTab('register')">Registrarse</button>
+        </div>
+
+        <!-- Contenido Principal -->
+        <div class="screen-content">
+            <div id="alert-box" class="alert-message"></div>
+
+            <!-- Formulario de Inicio de Sesión Móvil -->
+            <form id="form-login" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="login-email">Correo</label>
+                    <input type="text" id="login-email" placeholder="ejemplo@correo.com " required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Contraseña</label>
+                    <input type="password" id="login-password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-primary">Ingresar al Sistema</button>
+                <button type="button" class="btn-biometric" onclick="handleBiometricLogin()">
+                    <span>📲</span> Acceso por Huella / Rostro
+                </button>
+            </form>
+
+            <!-- Formulario de Registro Móvil -->
+            <form id="form-register" class="hidden" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="reg-name">Nombre Completo</label>
+                    <input type="text" id="reg-name" placeholder="Juan Gómez" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-doc">Documento de Identidad</label>
+                    <input type="text" id="reg-doc" placeholder="1094888777" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email">Correo Electrónico</label>
+                    <input type="email" id="reg-email" placeholder="usuario@armenia.gov.co" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-phone">Número de Celular</label>
+                    <input type="tel" id="reg-phone" placeholder="3001234567" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password">Contraseña</label>
+                    <input type="password" id="reg-password" placeholder="Mínimo 8 caracteres" minlength="8" required>
+                </div>
+                <button type="submit" class="btn-primary">Crear Cuenta Pasajero</button>
+            </form>
+
+            <!-- Dashboard Simulado Adaptado a Celular -->
+            <div id="user-dashboard" class="hidden">
+                <h2 id="dash-welcome" style="font-size:1.2rem; color:var(--primary-blue);">Bienvenido</h2>
+                <div id="dash-role-info" style="margin-bottom: 16px;"></div>
+
+                <!-- Vista Móvil para Pasajeros -->
+                <div id="view-pasajero" class="hidden">
+                    <div class="virtual-card">
+                        <div class="card-chip">💳 SETI VIRTUAL</div>
+                        <div class="card-number">4588 •••• •••• 9012</div>
+                        <div style="font-size:0.75rem; opacity:0.8;">SALDO DISPONIBLE</div>
+                        <div class="card-balance">$15.500 COP</div>
+                    </div>
+                    <div style="background:white; padding:14px; border-radius:12px; border:1px solid var(--border-color); margin-bottom:14px;">
+                        <p style="font-size:0.85rem; font-weight:bold; color:var(--primary-blue);">📍 Ruta Activa:</p>
+                        <p style="font-size:0.8rem; color:#555;">Puerto Espejo - Uniquindío</p>
+                        <p style="font-size:0.75rem; color:var(--success-green); margin-top:4px;">⏱️ Próximo bus en 4 mins (Paradero Uniquindío)</p>
+                    </div>
+                    <button class="btn-primary" style="background-color: var(--accent-cyan);" onclick="showAlert('Pasarela PSE activada correctamente.', 'success')">Recargar Pasaje Virtual</button>
+                </div>
+
+                <!-- Vista Móvil para Conductores -->
+                <div id="view-conductor" class="hidden">
+                    <div style="background:white; padding:16px; border-radius:12px; border:1px solid var(--border-color);">
+                        <h3 style="font-size:1rem; color:var(--primary-blue);">🚌 Terminal de Bus #04</h3>
+                        <p style="font-size:0.85rem; margin-top:8px;">Validador NFC: <b style="color:var(--success-green);">Operativo</b></p>
+                        <p style="font-size:0.85rem; margin-top:4px;">Pasajeros cobrados hoy: <b>142</b></p>
+                    </div>
+                </div>
+
+                <!--     Vista Móvil para Administradores -->
+                <div id="view-admin" class="hidden">
+                    <div style="background:white; padding:16px; border-radius:12px; border:1px solid var(--border-color);">
+                        <h3 style="font-size:1rem; color:var(--primary-blue);">⚙️ Consola de Control Móvil</h3>
+                        <p style="font-size:0.85rem; margin-top:8px;">Flota en movimiento: <b>30 Buses</b></p>
+                        <p style="font-size:0.85rem; margin-top:4px;">Recaudo total del día: <b>$780.000 COP</b></p>
+                    </div>
+                </div>
+
+                <button class="btn-primary" style="margin-top: 24px; background-color: #555555;" onclick="logout()">Cerrar Sesión</button>
+            </div>
+        </div>
+    </div>
+
+    </body>
+    <script src="script.js"></script>
+    </html>

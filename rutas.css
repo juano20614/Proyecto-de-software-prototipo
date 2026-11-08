@@ -1,0 +1,442 @@
+
+:root {
+    --primary-blue: #003366;
+    --accent-cyan: #00a8cc;
+    --light-bg: #f4f6f9;
+    --dark-text: #222222;
+    --card-bg: #ffffff;
+    --border-color: #dddddd;
+    --success-green: #28a745;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* =================================
+   CUERPO Y MARCO DEL CELULAR
+================================= */
+
+body {
+    background-color: #12161a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.mobile-frame {
+    width: 390px;
+    height: 844px;
+    background-color: var(--light-bg);
+    border-radius: 46px;
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 0 12px #2c2c2e;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ISLA DINÁMICA */
+
+.mobile-frame::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 28px;
+    background-color: #1a1a1a;
+    border-radius: 14px;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+/* =================================
+   ENCABEZADO
+================================= */
+
+.app-header {
+    background-color: var(--primary-blue);
+    color: white;
+    padding: 42px 16px 16px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.header-info {
+    min-width: 0;
+}
+
+.app-header h1 {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.app-header p {
+    font-size: 0.65rem;
+    opacity: 0.85;
+    margin-top: 3px;
+}
+
+.btn-volver {
+    padding: 9px 11px;
+    background-color: white;
+    color: var(--primary-blue);
+    border: none;
+    border-radius: 9px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+/* =================================
+   CONTENIDO PRINCIPAL
+================================= */
+
+.screen-content {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 0;
+}
+
+.titulo-rutas {
+    margin-bottom: 14px;
+}
+
+.titulo-rutas h2 {
+    font-size: 1.15rem;
+    color: var(--primary-blue);
+    margin-bottom: 5px;
+}
+
+.titulo-rutas p {
+    color: #555;
+    font-size: 0.78rem;
+    line-height: 1.4;
+}
+
+/* =================================
+   MAPA
+================================= */
+
+.mapa-contenedor {
+    background-color: white;
+    padding: 12px;
+    border-radius: 14px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 18px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    width: 100%;
+}
+
+.mapa-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.mapa-header h3 {
+    color: var(--primary-blue);
+    font-size: 0.9rem;
+}
+
+.estado-mapa {
+    color: var(--success-green);
+    font-size: 0.65rem;
+    white-space: nowrap;
+}
+
+/* MAPA LEAFLET */
+
+#mapa {
+    width: 100%;
+    height: 260px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #e8edf0;
+    z-index: 1;
+}
+
+/* BOTÓN DE UBICACIÓN */
+
+.btn-gps {
+    width: 100%;
+    padding: 13px;
+    background-color: var(--accent-cyan);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.2s;
+}
+
+.btn-gps:hover {
+    background-color: #008eaa;
+}
+
+.btn-gps:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+/* =================================
+   LISTA DE RUTAS
+================================= */
+
+.rutas-seccion {
+    width: 100%;
+}
+
+.rutas-seccion h3 {
+    font-size: 1rem;
+    color: var(--primary-blue);
+    margin-bottom: 5px;
+}
+
+.descripcion {
+    color: #666;
+    font-size: 0.75rem;
+    margin-bottom: 12px;
+}
+
+/* TARJETAS */
+
+.ruta-card {
+    background-color: white;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 11px;
+    cursor: pointer;
+    transition: 0.2s;
+    width: 100%;
+}
+
+.ruta-card:hover {
+    border-color: var(--accent-cyan);
+}
+
+.ruta-card.seleccionada {
+    border: 2px solid var(--accent-cyan);
+    background-color: #eafaff;
+}
+
+.ruta-card h4 {
+    font-size: 0.85rem;
+    margin-bottom: 7px;
+}
+
+.ruta-card p {
+    font-size: 0.75rem;
+    color: #555;
+    line-height: 1.4;
+    margin-bottom: 7px;
+}
+
+.ruta-estado {
+    font-size: 0.7rem;
+    color: var(--success-green);
+    font-weight: 600;
+}
+
+/* =================================
+   INFORMACIÓN
+================================= */
+
+.informacion {
+    background-color: #e2f4fa;
+    padding: 13px;
+    border-radius: 10px;
+    margin-top: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #c5e8f2;
+}
+
+.informacion h4 {
+    font-size: 0.85rem;
+    color: var(--primary-blue);
+}
+
+.informacion p {
+    font-size: 0.72rem;
+    color: #555;
+    margin-top: 6px;
+    line-height: 1.4;
+}
+
+/* =================================
+   MAPA LEAFLET
+================================= */
+
+.leaflet-container {
+    font-family: Arial, sans-serif;
+    z-index: 1;
+}
+
+.leaflet-control-attribution {
+    font-size: 8px !important;
+}
+
+/* =================================
+   RESPONSIVE
+================================= */
+
+@media (max-width: 420px) {
+
+    body {
+        background-color: var(--light-bg);
+    }
+
+    .mobile-frame {
+        width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .mobile-frame::before {
+        display: none;
+    }
+
+    .app-header {
+        padding-top: 20px;
+    }
+
+    #mapa {
+        height: 260px;
+    }
+}
+
+/* =================================
+   MODAL PARA EL PROTOTIPO MÓVIL
+================================= */
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    z-index: 2000;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.hidden {
+    display: none;
+}
+
+.modal-content {
+    background-color: white;
+    width: 100%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.modal-header h3 {
+    font-size: 1.05rem;
+    color: var(--primary-blue);
+}
+
+.btn-cerrar {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #777;
+    cursor: pointer;
+}
+
+.modal-subtitle {
+    font-size: 0.78rem;
+    color: #666;
+    margin-bottom: 14px;
+}
+
+.modal-opciones {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+.opcion-ruta-card {
+    background: #f8f9fa;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.opcion-ruta-card:hover {
+    background: #eef7fc;
+    border-color: var(--accent-cyan);
+}
+
+.opcion-ruta-info h5 {
+    font-size: 0.85rem;
+    color: var(--dark-text);
+    margin-bottom: 3px;
+}
+
+.opcion-ruta-info p {
+    font-size: 0.72rem;
+    color: #666;
+}
+
+.btn-add-fav {
+    background-color: var(--accent-cyan);
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    cursor: pointer;
+}

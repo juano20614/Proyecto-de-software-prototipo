@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SETI Armenia - Rutas Activas</title>
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <!-- Estilos propios -->
+    <link rel="stylesheet" href="rutas.css">
+</head>
+
+<body>
+
+    <!-- MARCO DEL CELULAR -->
+    <div class="mobile-frame">
+
+        <!-- ENCABEZADO -->
+        <header class="app-header">
+            <div class="header-info">
+                <h1>SETI Armenia</h1>
+                <p>Sistema Especializado de Transporte Inteligente</p>
+            </div>
+
+            <button class="btn-volver" onclick="location.href='dashboard.html'">
+                ← Volver
+            </button>
+        </header>
+
+        <!-- CONTENIDO -->
+        <main class="screen-content">
+
+            <!-- TÍTULO -->
+            <section class="titulo-rutas">
+                <h2>🚌 Rutas Activas</h2>
+                <p>Consulta los recorridos y ubicación de los buses de Armenia.</p>
+            </section>
+
+            <!-- MAPA -->
+            <section class="mapa-contenedor">
+                <div class="mapa-header">
+                    <h3>📍 Mapa de Armenia</h3>
+                    <span class="estado-mapa">● Mapa disponible</span>
+                </div>
+
+                <div id="mapa"></div>
+
+                <!-- BOTONES DE ACCIÓN RÁPIDA -->
+                <div style="display: flex; gap: 6px; margin-top: 10px;">
+                    <button id="btn-favoritos" class="btn-gps" style="background-color: #f39c12; flex: 1; font-size: 0.8rem; padding: 10px 4px;">
+                        ⭐ Favoritas
+                    </button>
+                    <button id="btn-agregar-ruta" class="btn-gps" style="background-color: #27ae60; flex: 1; font-size: 0.8rem; padding: 10px 4px;">
+                        ➕ Añadir
+                    </button>
+               
+                </div>
+            </section>
+
+            <!-- RUTAS -->
+            <section class="rutas-seccion">
+                <h3>Rutas disponibles</h3>
+                <p class="descripcion">Selecciona una ruta para visualizar su recorrido.</p>
+                <div id="lista-rutas"></div>
+            </section>
+
+            <!-- INFORMACIÓN -->
+            <section class="informacion">
+                <h4>🚍 Información del sistema</h4>
+                <p>Las ubicaciones de los buses son simuladas para el prototipo SETI Armenia.</p>
+            </section>
+
+        </main>
+
+        <!-- MODAL PARA AGREGAR RUTAS FRECUENTES -->
+        <div id="modal-rutas" class="modal-overlay hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Añadir Ruta Favorita</h3>
+                    <button id="btn-cerrar-modal" class="btn-cerrar">&times;</button>
+                </div>
+                <p class="modal-subtitle">Selecciona una ruta frecuente para guardar en tus favoritos:</p>
+                <div id="opciones-rutas-modal" class="modal-opciones"></div>
+            </div>
+        </div>
+
+        <!-- MODAL DE CONFIRMACIÓN PARA QUITAR FAVORITA -->
+        <div id="modal-confirmacion" class="modal-overlay hidden">
+            <div class="modal-content" style="text-align: center; padding: 25px 20px;">
+                <div style="font-size: 2.2rem; margin-bottom: 10px;">⚠️</div>
+                <h3 style="color: var(--primary-blue); margin-bottom: 8px;">¿Estás seguro?</h3>
+                <p id="texto-confirmacion" class="modal-subtitle" style="margin-bottom: 20px; font-size: 0.85rem;">
+                    ¿Estás seguro que quieres quitar esta ruta de favoritas?
+                </p>
+                <div style="display: flex; gap: 10px;">
+                    <button id="btn-cancelar-quitar" class="btn-gps" style="background-color: #95a5a6; margin-top: 0; flex: 1;">
+                        Cancelar
+                    </button>
+                    <button id="btn-confirmar-quitar" class="btn-gps" style="background-color: #e63946; margin-top: 0; flex: 1;">
+                        Sí, quitar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- LIBRERÍA LEAFLET -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- JAVASCRIPT -->
+    <script src="rutas.js"></script>
+
+</body>
+</html>

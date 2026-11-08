@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SETI Armenia - Inicio / Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="mobile-frame">
+    <!-- Encabezado de la App Móvil -->
+    <div class="app-header">
+        <div class="text-header">
+            <h1>SETI Armenia</h1>
+            <p>Sistema Especializado de Transporte Inteligente</p>
+        </div>
+    </div>
+
+    <!-- Contenido Principal del Dashboard -->
+    <div class="screen-content">
+        <div id="user-dashboard">
+            <h2 id="dash-welcome" style="font-size:1.2rem; color:var(--primary-blue);">Cargando perfil...</h2>
+            <div id="dash-role-info" style="margin-bottom: 16px;"></div>
+
+            <!-- Vista Móvil para Pasajeros -->
+            <div id="view-pasajero" class="hidden">
+                <div class="virtual-card">
+                    <div class="card-chip">💳 SETI VIRTUAL</div>
+                    <div class="card-number">4588 •••• •••• 9012</div>
+                    <div style="font-size:0.75rem; opacity:0.8;">SALDO DISPONIBLE</div>
+                    <div class="card-balance">$15.500 COP</div>
+                </div>
+                <div style="background:white; padding:14px; border-radius:12px; border:1px solid var(--border-color); margin-bottom:14px;">
+                   <button class="btn-rutas" onclick="location.href='rutas.html'">
+    🚌 Consultar rutas activas
+</button>
+                    <p style="font-size:0.8rem; color:#555;">Puerto Espejo - Uniquindío</p>
+                    <p style="font-size:0.75rem; color:var(--success-green); margin-top:4px;">⏱️ Próximo bus en 4 mins (Paradero Uniquindío)</p>
+                </div>
+                <button class="btn-primary" style="background-color: var(--accent-cyan);" onclick="alert('Redirigiendo a pasarela PSE...')">Recargar Pasaje Virtual</button>
+            </div>
+
+            <!-- Vista Móvil para Conductores -->
+            <div id="view-conductor" class="hidden">
+                <div style="background:white; padding:16px; border-radius:12px; border:1px solid var(--border-color);">
+                    <h3 style="font-size:1rem; color:var(--primary-blue);">🚌 Terminal de Bus #04</h3>
+                    <p style="font-size:0.85rem; margin-top:8px;">Validador NFC: <b style="color:var(--success-green);">Operativo</b></p>
+                    <p style="font-size:0.85rem; margin-top:4px;">Pasajeros cobrados hoy: <b>142</b></p>
+                </div>
+            </div>
+
+            <!-- Vista Móvil para Administradores -->
+            <div id="view-admin" class="hidden">
+                <div style="background:white; padding:16px; border-radius:12px; border:1px solid var(--border-color);">
+                    <h3 style="font-size:1rem; color:var(--primary-blue);">⚙️ Consola de Control Móvil</h3>
+                    <p style="font-size:0.85rem; margin-top:8px;">Flota en movimiento: <b>30 Buses</b></p>
+                    <p style="font-size:0.85rem; margin-top:4px;">Recaudo total del día: <b>$780.000 COP</b></p>
+                </div>
+            </div>
+
+            <button class="btn-primary" style="margin-top: 24px; background-color: #555555;" onclick="logout()">Cerrar Sesión</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Cargar perfil al entrar al dashboard
+    document.addEventListener("DOMContentLoaded", () => {
+        const user = localStorage.getItem("seti_user") || "Pasajero";
+        const role = localStorage.getItem("seti_role") || "pasajero";
+
+        document.getElementById('dash-welcome').textContent = `Hola, ${user}`;
+        document.getElementById('dash-role-info').innerHTML = `Perfil: <span class="role-badge role-${role}">${role.toUpperCase()}</span>`;
+
+        if (role === 'pasajero') {
+            document.getElementById('view-pasajero').classList.remove('hidden');
+        } else if (role === 'conductor') {
+            document.getElementById('view-conductor').classList.remove('hidden');
+        } else if (role === 'admin') {
+            document.getElementById('view-admin').classList.remove('hidden');
+        }
+    });
+
+    function logout() {
+        localStorage.clear();
+        window.location.href = "index.html"; // Regresa al inicio
+    }
+</script>
+
+</body>
+</html>
